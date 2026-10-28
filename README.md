@@ -6,19 +6,18 @@
 
 ## 运行
 
-本项目不需要 Docker。建议 Python 3.11：
+本项目不需要 Docker。clone 后，在 macOS/Linux 上安装 Python 3.11，然后运行：
 
 ```bash
-python3.11 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-python src/download_data.py
-python src/train.py
+git clone https://github.com/wonder-prince/Machine_Learning.git
+cd Machine_Learning
+bash setup.sh
+.venv/bin/python src/train.py
 ```
 
-数据下载脚本获取手册指定的 `bank-additional-full.csv`。也可以从 [UCI 数据集页面](https://archive.ics.uci.edu/dataset/222/bank+marketing) 手动下载 `bank-additional.zip`，解压后将 CSV 放在 `data/bank-additional-full.csv`。
+`setup.sh` 会创建 `.venv`、安装固定版本的依赖、检查依赖兼容性，并确认数据文件就位；重复运行也可以。仓库已包含手册指定的 `bank-additional-full.csv`，因此通常不需要再次下载。若数据文件缺失，脚本会从 UCI 下载；也可以从 [UCI 数据集页面](https://archive.ics.uci.edu/dataset/222/bank+marketing) 手动下载 `bank-additional.zip`，解压后将 CSV 放在 `data/bank-additional-full.csv`。
 
-如需先检查安装和流程，可运行 `python src/train.py --quick --cv-folds 2`。正式结果请使用不带 `--quick` 的命令。
+如需先检查安装和流程，可运行 `.venv/bin/python src/train.py --quick --cv-folds 2`。正式结果请使用不带 `--quick` 的命令。
 
 在 VS Code 中打开本项目文件夹后，`.vscode` 配置会选用项目内的 `.venv` 解释器。安装 Microsoft Python 扩展后，可在“运行和调试”中选择“快速检查”或“完整实验”。
 
