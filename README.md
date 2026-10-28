@@ -20,6 +20,8 @@ python src/train.py
 
 如需先检查安装和流程，可运行 `python src/train.py --quick --cv-folds 2`。正式结果请使用不带 `--quick` 的命令。
 
+在 VS Code 中打开本项目文件夹后，`.vscode` 配置会选用项目内的 `.venv` 解释器。安装 Microsoft Python 扩展后，可在“运行和调试”中选择“快速检查”或“完整实验”。
+
 ## 输出
 
 - 控制台：各模型最佳超参数、交叉验证与测试集 AUC、`classification_report`

@@ -4,7 +4,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+os.environ.setdefault("MPLCONFIGDIR", str(ROOT / ".cache" / "matplotlib"))
 
 import joblib
 import matplotlib
@@ -29,7 +33,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
-ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DATA = ROOT / "data" / "bank-additional-full.csv"
 DEFAULT_OUTPUT = ROOT / "results"
 SEED = 42
