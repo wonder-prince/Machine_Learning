@@ -4,6 +4,91 @@
   "positive_rate": 0.11265417111780131,
   "cv_folds": 5,
   "quick": false,
+  "dataset_profile": {
+    "numeric_columns": [
+      "age",
+      "duration",
+      "campaign",
+      "pdays",
+      "previous",
+      "emp.var.rate",
+      "cons.price.idx",
+      "cons.conf.idx",
+      "euribor3m",
+      "nr.employed"
+    ],
+    "categorical_columns": [
+      "job",
+      "marital",
+      "education",
+      "default",
+      "housing",
+      "loan",
+      "contact",
+      "month",
+      "day_of_week",
+      "poutcome"
+    ],
+    "missing_cells": 0,
+    "unknown_counts": {
+      "job": 330,
+      "marital": 80,
+      "education": 1731,
+      "default": 8597,
+      "housing": 990,
+      "loan": 990
+    },
+    "duplicate_rows": 12,
+    "train_class_counts": {
+      "0": 29238,
+      "1": 3712
+    },
+    "test_class_counts": {
+      "0": 7310,
+      "1": 928
+    }
+  },
+  "unweighted_lr_baseline": {
+    "description": "Same tuned LR C and penalty, without class_weight='balanced'",
+    "test_roc_auc": 0.9423066830982594,
+    "confusion_matrix": [
+      [
+        7143,
+        167
+      ],
+      [
+        535,
+        393
+      ]
+    ],
+    "classification_report": {
+      "no": {
+        "precision": 0.9303203959364418,
+        "recall": 0.9771545827633379,
+        "f1-score": 0.9531625300240192,
+        "support": 7310.0
+      },
+      "yes": {
+        "precision": 0.7017857142857142,
+        "recall": 0.4234913793103448,
+        "f1-score": 0.5282258064516129,
+        "support": 928.0
+      },
+      "accuracy": 0.9147851420247632,
+      "macro avg": {
+        "precision": 0.8160530551110781,
+        "recall": 0.7003229810368413,
+        "f1-score": 0.7406941682378161,
+        "support": 8238.0
+      },
+      "weighted avg": {
+        "precision": 0.9045762608828031,
+        "recall": 0.9147851420247632,
+        "f1-score": 0.9052939600464527,
+        "support": 8238.0
+      }
+    }
+  },
   "models": {
     "logistic_regression": {
       "best_params": {

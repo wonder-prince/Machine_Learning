@@ -4,6 +4,8 @@
 
 依据《机器学习 实验手册》复现 UCI Bank Marketing 数据集上的分类实验。手册明确指定逻辑回归，同时要求比较三个模型；这里补充随机森林和直方图梯度提升作为对照模型。三个模型都用网格搜索和分层 5 折交叉验证，以 ROC AUC 选择超参数。
 
+完整实验方法、结果分析与调试记录见 [银行营销逻辑回归实验报告](银行营销逻辑回归实验报告.md)。
+
 ## 运行
 
 本项目不需要 Docker。clone 后，在 macOS/Linux 上安装 Python 3.11，然后运行：
@@ -15,7 +17,7 @@ bash setup.sh
 .venv/bin/python src/train.py
 ```
 
-`setup.sh` 会创建 `.venv`、安装固定版本的依赖、检查依赖兼容性，并确认数据文件就位；重复运行也可以。仓库已包含手册指定的 `bank-additional-full.csv`，因此通常不需要再次下载。若数据文件缺失，脚本会从 UCI 下载；也可以从 [UCI 数据集页面](https://archive.ics.uci.edu/dataset/222/bank+marketing) 手动下载 `bank-additional.zip`，解压后将 CSV 放在 `data/bank-additional-full.csv`。
+`setup.sh` 会创建 `.venv`、安装固定版本的依赖、检查依赖兼容性，并确认数据文件就位；安装了 `uv` 时会用它创建虚拟环境和安装依赖，重复运行也可以。仓库已包含手册指定的 `bank-additional-full.csv`，因此通常不需要再次下载。若数据文件缺失，脚本会从 UCI 下载；也可以从 [UCI 数据集页面](https://archive.ics.uci.edu/dataset/222/bank+marketing) 手动下载 `bank-additional.zip`，解压后将 CSV 放在 `data/bank-additional-full.csv`。
 
 如需先检查安装和流程，可运行 `.venv/bin/python src/train.py --quick --cv-folds 2`。正式结果请使用不带 `--quick` 的命令。
 
@@ -24,7 +26,7 @@ bash setup.sh
 ## 输出
 
 - 控制台：各模型最佳超参数、交叉验证与测试集 AUC、`classification_report`
-- `results/metrics.json`：机器可读指标与混淆矩阵
+- `results/metrics.json`：机器可读指标、数据概况、无权重逻辑回归对照与混淆矩阵
 - `results/confusion_matrices.png`：三个模型的混淆矩阵
 - `results/roc_curves.png`：三个模型的 ROC 曲线与 AUC
 - `results/*.joblib`：训练好的完整预处理与模型管道

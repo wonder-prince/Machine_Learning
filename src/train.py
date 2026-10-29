@@ -114,6 +114,20 @@ def run(data_path: Path, output_dir: Path, folds: int, quick: bool) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     results: dict[str, dict] = {}
     roc_data = {}
+    unweighted_baseline: dict | None = None
+    profile = {
+        "numeric_columns": X.select_dtypes(include=np.number).columns.tolist(),
+        "categorical_columns": X.select_dtypes(exclude=np.number).columns.tolist(),
+        "missing_cells": int(X.isna().sum().sum()),
+        "unknown_counts": {
+            column: int(X[column].eq("unknown").sum())
+            for column in X.select_dtypes(exclude=np.number).columns
+            if X[column].eq("unknown").any()
+        },
+        "duplicate_rows": int(pd.concat([X, y.rename("y")], axis=1).duplicated().sum()),
+        "train_class_counts": y_train.value_counts().sort_index().to_dict(),
+        "test_class_counts": y_test.value_counts().sort_index().to_dict(),
+    }
 
     for name, (model, grid) in model_specs(quick).items():
         print(f"\n=== {name}: {np.prod([len(v) for v in grid.values()])} candidates x {folds} folds ===", flush=True)
@@ -139,10 +153,38 @@ def run(data_path: Path, output_dir: Path, folds: int, quick: bool) -> None:
         roc_data[name] = roc_curve(y_test, probability)
         joblib.dump(search.best_estimator_, output_dir / f"{name}.joblib")
 
+        if name == "logistic_regression":
+            # Hold preprocessing and tuned C/penalty fixed; change only class weighting.
+            baseline = Pipeline([
+                ("preprocess", make_preprocessor(X_train)),
+                ("model", LogisticRegression(
+                    solver="liblinear", max_iter=2000, random_state=SEED,
+                    C=search.best_params_["model__C"],
+                    penalty=search.best_params_["model__penalty"],
+                )),
+            ])
+            baseline.fit(X_train, y_train)
+            baseline_pred = baseline.predict(X_test)
+            baseline_prob = baseline.predict_proba(X_test)[:, 1]
+            unweighted_baseline = {
+                "description": "Same tuned LR C and penalty, without class_weight='balanced'",
+                "test_roc_auc": float(roc_auc_score(y_test, baseline_prob)),
+                "confusion_matrix": confusion_matrix(y_test, baseline_pred).tolist(),
+                "classification_report": classification_report(
+                    y_test, baseline_pred, target_names=["no", "yes"],
+                    zero_division=0, output_dict=True,
+                ),
+            }
+            print("Unweighted LR baseline (same C and penalty):", flush=True)
+            print(classification_report(y_test, baseline_pred,
+                                        target_names=["no", "yes"], zero_division=0), flush=True)
+
     (output_dir / "metrics.json").write_text(
         json.dumps({"dataset_rows": len(X), "test_rows": len(X_test),
                     "positive_rate": float(y.mean()), "cv_folds": folds,
-                    "quick": quick, "models": results}, indent=2, ensure_ascii=False),
+                    "quick": quick, "dataset_profile": profile,
+                    "unweighted_lr_baseline": unweighted_baseline,
+                    "models": results}, indent=2, ensure_ascii=False),
         encoding="utf-8",
     )
 

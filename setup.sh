@@ -11,7 +11,12 @@ if ! command -v "$python_bin" >/dev/null 2>&1; then
 fi
 
 if [[ ! -x .venv/bin/python ]]; then
-  "$python_bin" -m venv .venv
+  if command -v uv >/dev/null 2>&1; then
+    export UV_CACHE_DIR="${UV_CACHE_DIR:-$project_dir/.cache/uv}"
+    uv venv --python "$python_bin" .venv
+  else
+    "$python_bin" -m venv .venv
+  fi
 fi
 
 if command -v uv >/dev/null 2>&1; then
