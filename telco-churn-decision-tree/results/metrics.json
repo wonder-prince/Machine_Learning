@@ -1,0 +1,130 @@
+{
+  "dataset": {
+    "rows": 7043,
+    "positive_rate": 0.2653698707936959,
+    "missing_total_charges": 11,
+    "features": [
+      "gender",
+      "SeniorCitizen",
+      "Partner",
+      "Dependents",
+      "tenure",
+      "PhoneService",
+      "MultipleLines",
+      "InternetService",
+      "OnlineSecurity",
+      "OnlineBackup",
+      "DeviceProtection",
+      "TechSupport",
+      "StreamingTV",
+      "StreamingMovies",
+      "Contract",
+      "PaperlessBilling",
+      "PaymentMethod",
+      "MonthlyCharges",
+      "TotalCharges"
+    ]
+  },
+  "split": {
+    "train_rows": 5634,
+    "test_rows": 1409,
+    "train_positive": 1495,
+    "test_positive": 374,
+    "random_state": 42,
+    "cv_folds": 5
+  },
+  "quick": false,
+  "models": {
+    "decision_tree": {
+      "best_params": {
+        "model__criterion": "entropy",
+        "model__max_depth": 5,
+        "model__max_leaf_nodes": 32,
+        "model__min_samples_leaf": 10
+      },
+      "cv_auc": 0.8322843836608371,
+      "test_auc": 0.8373504869668551,
+      "confusion_matrix": [
+        [
+          782,
+          253
+        ],
+        [
+          93,
+          281
+        ]
+      ],
+      "classification_report": {
+        "No": {
+          "precision": 0.8937142857142857,
+          "recall": 0.7555555555555555,
+          "f1-score": 0.818848167539267,
+          "support": 1035.0
+        },
+        "Yes": {
+          "precision": 0.5262172284644194,
+          "recall": 0.7513368983957219,
+          "f1-score": 0.6189427312775331,
+          "support": 374.0
+        },
+        "accuracy": 0.7544357700496807,
+        "macro avg": {
+          "precision": 0.7099657570893525,
+          "recall": 0.7534462269756388,
+          "f1-score": 0.7188954494084001,
+          "support": 1409.0
+        },
+        "weighted avg": {
+          "precision": 0.7961671605109854,
+          "recall": 0.7544357700496807,
+          "f1-score": 0.7657859722504887,
+          "support": 1409.0
+        }
+      }
+    },
+    "logistic_regression": {
+      "best_params": {
+        "model__C": 10
+      },
+      "cv_auc": 0.8462961276287736,
+      "test_auc": 0.840605543930352,
+      "confusion_matrix": [
+        [
+          747,
+          288
+        ],
+        [
+          81,
+          293
+        ]
+      ],
+      "classification_report": {
+        "No": {
+          "precision": 0.9021739130434783,
+          "recall": 0.7217391304347827,
+          "f1-score": 0.8019323671497585,
+          "support": 1035.0
+        },
+        "Yes": {
+          "precision": 0.504302925989673,
+          "recall": 0.7834224598930482,
+          "f1-score": 0.6136125654450262,
+          "support": 374.0
+        },
+        "accuracy": 0.7381121362668559,
+        "macro avg": {
+          "precision": 0.7032384195165756,
+          "recall": 0.7525807951639154,
+          "f1-score": 0.7077724662973923,
+          "support": 1409.0
+        },
+        "weighted avg": {
+          "precision": 0.7965644388361517,
+          "recall": 0.7381121362668559,
+          "f1-score": 0.7519454219137259,
+          "support": 1409.0
+        }
+      }
+    }
+  }
+}
