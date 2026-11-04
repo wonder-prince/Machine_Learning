@@ -2,4 +2,5 @@
 .uv-cache/
 .cache/
 __pycache__/
-results/*.joblib
+experiments/*/results/*.joblib
+experiments/*/results/predictions.csv

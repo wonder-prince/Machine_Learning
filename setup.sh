@@ -31,5 +31,9 @@ else
   .venv/bin/python -m pip check
 fi
 
-.venv/bin/python src/download_data.py
-echo "环境已就绪。快速检查：.venv/bin/python src/train.py --quick --cv-folds 2"
+.venv/bin/python experiments/bank-marketing/src/download_data.py
+if [[ ! -f experiments/telco-churn/data/Telco-Customer-Churn.csv ]]; then
+  echo "缺少电信流失数据：experiments/telco-churn/data/Telco-Customer-Churn.csv" >&2
+  exit 1
+fi
+echo "环境已就绪。快速检查：.venv/bin/python experiments/bank-marketing/src/train.py --quick --cv-folds 2"

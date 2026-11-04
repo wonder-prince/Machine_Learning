@@ -4,24 +4,17 @@
 
 ## 环境与运行
 
-数据集已经放在 `data/Telco-Customer-Churn.csv`。在本目录运行：
+从仓库根目录运行。数据集已经放在 `experiments/telco-churn/data/Telco-Customer-Churn.csv`：
 
 ```bash
-conda create -n telco-churn python=3.11 -y
-conda activate telco-churn
-python -m pip install -r requirements.txt
-python src/train.py
+bash setup.sh
+.venv/bin/python experiments/telco-churn/src/train.py
+.venv/bin/python experiments/telco-churn/src/predict.py --input experiments/telco-churn/data/example_customers.csv
 ```
 
-如果不使用 Conda，也可以创建 Python 3.11 虚拟环境后安装 `requirements.txt`。
+如使用 Conda，可按根目录 README 的说明安装相同的 `requirements.txt`，再用 `python` 运行上述两个脚本。
 
-训练完成后，对具有相同 19 个特征列的新客户 CSV 预测：
-
-```bash
-python src/predict.py --input data/example_customers.csv --output results/predictions.csv
-```
-
-输入列名与数据集相同，`Churn` 不需要提供；`customerID` 可选。输出包含 `customerID`、流失概率 `churn_probability` 和以 0.5 为阈值的 `predicted_churn`。示例文件的三行来自原始数据，只用于演示输入格式，不代表独立验证集。不要把 `customerID` 或 `Churn` 当作预测特征。
+预测输入须含相同的 19 个特征列，`Churn` 不需要提供；`customerID` 可选。输出包含 `customerID`、流失概率 `churn_probability` 和以 0.5 为阈值的 `predicted_churn`。示例文件的三行来自原始数据，只用于演示输入格式，不代表独立验证集。不要把 `customerID` 或 `Churn` 当作预测特征。
 
 ## 设计
 

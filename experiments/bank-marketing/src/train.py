@@ -41,7 +41,7 @@ SEED = 42
 def load_data(path: Path) -> tuple[pd.DataFrame, pd.Series]:
     if not path.is_file():
         raise FileNotFoundError(
-            f"Dataset missing: {path}\nRun `python src/download_data.py` first."
+            f"Dataset missing: {path}\nRun `python experiments/bank-marketing/src/download_data.py` first."
         )
     frame = pd.read_csv(path, sep=";")
     if "y" not in frame.columns or set(frame["y"].dropna().unique()) != {"no", "yes"}:

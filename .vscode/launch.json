@@ -2,19 +2,36 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "快速检查（6,000 条）",
+      "name": "银行营销：快速检查",
       "type": "debugpy",
       "request": "launch",
-      "program": "${workspaceFolder}/src/train.py",
+      "program": "${workspaceFolder}/experiments/bank-marketing/src/train.py",
       "args": ["--quick", "--cv-folds", "2"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
     },
     {
-      "name": "完整实验（5 折）",
+      "name": "银行营销：完整实验",
       "type": "debugpy",
       "request": "launch",
-      "program": "${workspaceFolder}/src/train.py",
+      "program": "${workspaceFolder}/experiments/bank-marketing/src/train.py",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "电信流失：完整实验",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/experiments/telco-churn/src/train.py",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "电信流失：示例预测",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/experiments/telco-churn/src/predict.py",
+      "args": ["--input", "${workspaceFolder}/experiments/telco-churn/data/example_customers.csv"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
     }
