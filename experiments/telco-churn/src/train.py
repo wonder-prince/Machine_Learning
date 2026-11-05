@@ -116,15 +116,20 @@ def run(data_path: Path, output_dir: Path, folds: int, quick: bool) -> None:
     (output_dir / "metrics.json").write_text(
         json.dumps(metrics, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    fig, ax = plt.subplots(figsize=(5.5, 5))
-    ConfusionMatrixDisplay(
-        np.array(metrics["models"]["decision_tree"]["confusion_matrix"]),
-        display_labels=["No", "Yes"],
-    ).plot(ax=ax, cmap="Blues", colorbar=False, values_format="d")
-    ax.set_title("Decision tree: test confusion matrix")
-    fig.tight_layout()
-    fig.savefig(output_dir / "confusion_matrix.png", dpi=180)
-    plt.close(fig)
+    confusion_matrix_files = {
+        "decision_tree": "confusion_matrix.png",
+        "logistic_regression": "confusion_matrix_logistic_regression.png",
+    }
+    for name, filename in confusion_matrix_files.items():
+        fig, ax = plt.subplots(figsize=(5.5, 5))
+        ConfusionMatrixDisplay(
+            np.array(metrics["models"][name]["confusion_matrix"]),
+            display_labels=["No", "Yes"],
+        ).plot(ax=ax, cmap="Blues", colorbar=False, values_format="d")
+        ax.set_title(f"{name.replace('_', ' ').title()}: test confusion matrix")
+        fig.tight_layout()
+        fig.savefig(output_dir / filename, dpi=180)
+        plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(6, 5))
     for name, (fpr, tpr, _) in rocs.items():
@@ -135,6 +140,20 @@ def run(data_path: Path, output_dir: Path, folds: int, quick: bool) -> None:
     fig.tight_layout()
     fig.savefig(output_dir / "roc_curves.png", dpi=180)
     plt.close(fig)
+
+    for name, (fpr, tpr, _) in rocs.items():
+        fig, ax = plt.subplots(figsize=(6, 5))
+        ax.plot(fpr, tpr, label=f"AUC={metrics['models'][name]['test_auc']:.3f}")
+        ax.plot([0, 1], [0, 1], "k--", linewidth=1)
+        ax.set(
+            xlabel="False positive rate",
+            ylabel="True positive rate",
+            title=f"{name.replace('_', ' ').title()}: test ROC curve",
+        )
+        ax.legend(loc="lower right")
+        fig.tight_layout()
+        fig.savefig(output_dir / f"roc_curve_{name}.png", dpi=180)
+        plt.close(fig)
     print(f"Saved results to {output_dir}")
 
 

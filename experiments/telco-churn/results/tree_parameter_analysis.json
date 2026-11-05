@@ -1,0 +1,262 @@
+{
+  "design": {
+    "train_rows": 5634,
+    "test_rows_held_out": 1409,
+    "random_state": 42,
+    "scoring": "roc_auc",
+    "grid": {
+      "model__criterion": [
+        "gini",
+        "entropy"
+      ],
+      "model__max_depth": [
+        3,
+        5,
+        7,
+        10
+      ],
+      "model__max_leaf_nodes": [
+        8,
+        16,
+        32,
+        64
+      ],
+      "model__min_samples_leaf": [
+        10,
+        30
+      ]
+    },
+    "note": "Exploratory comparison; the held-out test set is not used to select parameters or folds."
+  },
+  "fold_comparison": [
+    {
+      "folds": 3,
+      "fits": 192,
+      "best": {
+        "params": {
+          "model__criterion": "entropy",
+          "model__max_depth": 5,
+          "model__max_leaf_nodes": 32,
+          "model__min_samples_leaf": 30
+        },
+        "cv_auc": 0.8342460013478431,
+        "fold_auc_std": 0.01240898807091127,
+        "train_auc": 0.8547141979369147,
+        "actual_depth": 5,
+        "actual_leaves": 30
+      }
+    },
+    {
+      "folds": 5,
+      "fits": 320,
+      "best": {
+        "params": {
+          "model__criterion": "entropy",
+          "model__max_depth": 5,
+          "model__max_leaf_nodes": 32,
+          "model__min_samples_leaf": 10
+        },
+        "cv_auc": 0.8322843836608371,
+        "fold_auc_std": 0.009076498034078857,
+        "train_auc": 0.8529349533075985,
+        "actual_depth": 5,
+        "actual_leaves": 31
+      },
+      "criterion_best": {
+        "gini": {
+          "params": {
+            "model__criterion": "gini",
+            "model__max_depth": 5,
+            "model__max_leaf_nodes": 32,
+            "model__min_samples_leaf": 10
+          },
+          "cv_auc": 0.8299774319924247,
+          "fold_auc_std": 0.014338715756579272,
+          "train_auc": 0.8541624991454914
+        },
+        "entropy": {
+          "params": {
+            "model__criterion": "entropy",
+            "model__max_depth": 5,
+            "model__max_leaf_nodes": 32,
+            "model__min_samples_leaf": 10
+          },
+          "cv_auc": 0.8322843836608371,
+          "fold_auc_std": 0.009076498034078857,
+          "train_auc": 0.8529349533075985
+        }
+      },
+      "controlled_comparisons": {
+        "model__criterion": [
+          {
+            "value": "gini",
+            "params": {
+              "model__criterion": "gini",
+              "model__max_depth": 5,
+              "model__max_leaf_nodes": 32,
+              "model__min_samples_leaf": 10
+            },
+            "cv_auc": 0.8299774319924247,
+            "fold_auc_std": 0.014338715756579272,
+            "train_auc": 0.8541624991454914
+          },
+          {
+            "value": "entropy",
+            "params": {
+              "model__criterion": "entropy",
+              "model__max_depth": 5,
+              "model__max_leaf_nodes": 32,
+              "model__min_samples_leaf": 10
+            },
+            "cv_auc": 0.8322843836608371,
+            "fold_auc_std": 0.009076498034078857,
+            "train_auc": 0.8529349533075985
+          }
+        ],
+        "model__max_depth": [
+          {
+            "value": 3,
+            "params": {
+              "model__criterion": "entropy",
+              "model__max_depth": 3,
+              "model__max_leaf_nodes": 32,
+              "model__min_samples_leaf": 10
+            },
+            "cv_auc": 0.8159902042396332,
+            "fold_auc_std": 0.00971280028842928,
+            "train_auc": 0.8245674480131223
+          },
+          {
+            "value": 5,
+            "params": {
+              "model__criterion": "entropy",
+              "model__max_depth": 5,
+              "model__max_leaf_nodes": 32,
+              "model__min_samples_leaf": 10
+            },
+            "cv_auc": 0.8322843836608371,
+            "fold_auc_std": 0.009076498034078857,
+            "train_auc": 0.8529349533075985
+          },
+          {
+            "value": 7,
+            "params": {
+              "model__criterion": "entropy",
+              "model__max_depth": 7,
+              "model__max_leaf_nodes": 32,
+              "model__min_samples_leaf": 10
+            },
+            "cv_auc": 0.8259008208397098,
+            "fold_auc_std": 0.008322757299567149,
+            "train_auc": 0.8579512815827632
+          },
+          {
+            "value": 10,
+            "params": {
+              "model__criterion": "entropy",
+              "model__max_depth": 10,
+              "model__max_leaf_nodes": 32,
+              "model__min_samples_leaf": 10
+            },
+            "cv_auc": 0.8255084187789002,
+            "fold_auc_std": 0.008175141489457914,
+            "train_auc": 0.8580243737934861
+          }
+        ],
+        "model__max_leaf_nodes": [
+          {
+            "value": 8,
+            "params": {
+              "model__criterion": "entropy",
+              "model__max_depth": 5,
+              "model__max_leaf_nodes": 8,
+              "model__min_samples_leaf": 10
+            },
+            "cv_auc": 0.818962268931925,
+            "fold_auc_std": 0.01000571426558529,
+            "train_auc": 0.8266131273085486
+          },
+          {
+            "value": 16,
+            "params": {
+              "model__criterion": "entropy",
+              "model__max_depth": 5,
+              "model__max_leaf_nodes": 16,
+              "model__min_samples_leaf": 10
+            },
+            "cv_auc": 0.8286713900345744,
+            "fold_auc_std": 0.010013798819179104,
+            "train_auc": 0.8434078342327919
+          },
+          {
+            "value": 32,
+            "params": {
+              "model__criterion": "entropy",
+              "model__max_depth": 5,
+              "model__max_leaf_nodes": 32,
+              "model__min_samples_leaf": 10
+            },
+            "cv_auc": 0.8322843836608371,
+            "fold_auc_std": 0.009076498034078857,
+            "train_auc": 0.8529349533075985
+          },
+          {
+            "value": 64,
+            "params": {
+              "model__criterion": "entropy",
+              "model__max_depth": 5,
+              "model__max_leaf_nodes": 64,
+              "model__min_samples_leaf": 10
+            },
+            "cv_auc": 0.8322843836608371,
+            "fold_auc_std": 0.009076498034078857,
+            "train_auc": 0.8529349533075985
+          }
+        ],
+        "model__min_samples_leaf": [
+          {
+            "value": 10,
+            "params": {
+              "model__criterion": "entropy",
+              "model__max_depth": 5,
+              "model__max_leaf_nodes": 32,
+              "model__min_samples_leaf": 10
+            },
+            "cv_auc": 0.8322843836608371,
+            "fold_auc_std": 0.009076498034078857,
+            "train_auc": 0.8529349533075985
+          },
+          {
+            "value": 30,
+            "params": {
+              "model__criterion": "entropy",
+              "model__max_depth": 5,
+              "model__max_leaf_nodes": 32,
+              "model__min_samples_leaf": 30
+            },
+            "cv_auc": 0.831681090377314,
+            "fold_auc_std": 0.0103338678400289,
+            "train_auc": 0.8531999261042513
+          }
+        ]
+      }
+    },
+    {
+      "folds": 10,
+      "fits": 640,
+      "best": {
+        "params": {
+          "model__criterion": "gini",
+          "model__max_depth": 5,
+          "model__max_leaf_nodes": 32,
+          "model__min_samples_leaf": 30
+        },
+        "cv_auc": 0.8302550342635854,
+        "fold_auc_std": 0.013403308821186162,
+        "train_auc": 0.8527824018232446,
+        "actual_depth": 5,
+        "actual_leaves": 30
+      }
+    }
+  ]
+}
